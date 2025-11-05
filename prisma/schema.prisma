@@ -1,0 +1,148 @@
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//
+// ENUMS
+//
+enum Role {
+  admin
+  user
+}
+
+enum DocumentType {
+  official
+  memorandum
+}
+
+enum DocumentStatus {
+  draft
+  sent
+  received
+  not_sent
+}
+
+enum DocumentCategory {
+  normal
+  encrypted
+}
+
+enum PermissionType {
+  read
+  write
+  read_write
+}
+
+enum DocumentAction {
+  created
+  sent
+  received
+  not_sent
+  replied
+  edited
+}
+
+//
+// MODELS
+//
+model User {
+  id                 Int                 @id @default(autoincrement())
+  institutionalEmail String              @unique
+  name               String
+  passwordHash       String
+  role               Role                @default(user)
+  pdfKey             String?
+  createdAt          DateTime            @default(now())
+
+  // Relations
+  documents          Document[]          @relation("UserDocuments")
+  documentHistory    DocumentHistory[]
+  documentRecipients DocumentRecipient[]
+
+  @@map("users")
+}
+
+model Document {
+  id            Int              @id @default(autoincrement())
+  type          DocumentType
+  title         String
+  content       String
+  status        DocumentStatus   @default(draft)
+  category      DocumentCategory @default(normal)
+  isEncrypted   Boolean          @default(false)
+  qrCode        String?
+  pdfPath       String?
+  encryptionKey String?
+  createdById   Int
+  createdAt     DateTime         @default(now())
+
+  // Relations
+  createdBy     User             @relation("UserDocuments", fields: [createdById], references: [id])
+  draft         Draft?
+  attachments   Attachment[]
+  recipients    DocumentRecipient[]
+  history       DocumentHistory[]
+
+  @@map("documents")
+}
+
+model Draft {
+  id             Int       @id @default(autoincrement())
+  documentId     Int       @unique
+  textContent    String
+  lastModifiedAt DateTime  @default(now())
+
+  // Relations
+  document       Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("drafts")
+}
+
+model Attachment {
+  id         Int       @id @default(autoincrement())
+  documentId Int
+  filePath   String
+  mimeType   String?
+
+  // Relations
+  document   Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("attachments")
+}
+
+model DocumentRecipient {
+  id         Int            @id @default(autoincrement())
+  documentId Int
+  userId     Int
+  permission PermissionType  @default(read)
+
+  // Relations
+  document   Document        @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, userId])
+  @@map("document_recipients")
+}
+
+model DocumentHistory {
+  id         Int             @id @default(autoincrement())
+  documentId Int
+  userId     Int
+  action     DocumentAction
+  date       DateTime        @default(now())
+
+  // Relations
+  document   Document         @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("document_history")
+}
