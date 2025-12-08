@@ -1,6 +1,6 @@
-# 📄 Document Manager API
+# 📄 Document Manager API (Proyecto en Proceso)
 
-Sistema de gestión de documentos oficiales y memorandos desarrollado con NestJS, Prisma y PostgreSQL. Este proyecto forma parte del trabajo final de Seguridad Informática y proporciona una plataforma segura para la creación, firma digital, cifrado y gestión de documentos institucionales.
+Sistema de gestión de documentos oficiales y memorandos desarrollado con NestJS, Prisma y PostgreSQL. Este proyecto forma parte de un proyecto educativo de Seguridad y proporciona una plataforma segura para la creación, firma digital, cifrado y gestión de documentos institucionales.
 
 ## 📋 Descripción del Proyecto
 
@@ -375,18 +375,40 @@ npx prisma migrate dev    # Ejecuta migraciones en desarrollo
 npx prisma generate       # Genera el cliente de Prisma
 ```
 
-## 🤝 Contribución
-
-### Para contribuir:
-
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
 ## 👥 Autores
 
-- **IAlexLizano** - [GitHub](https://github.com/IAlexLizano)
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/JaviFiallos">
+        <img src="https://github.com/JaviFiallos.png" width="100px;" alt="Edison Fiallos"/><br />
+        <sub><b>Edison Fiallos</b></sub>
+      </a><br />
+      <sub>💻 Desarrollador Frontend</sub>
+    </td>
+     <td align="center">
+      <a href="https://github.com/IAlexLizano">
+        <img src="https://github.com/IAlexLizano.png" width="100px;" alt="Alex Lizano"/><br />
+        <sub><b>Alex Lizano</b></sub>
+      </a><br />
+      <sub>💻 Desarrollador Backend</sub>
+    </td>
+     <td align="center">
+      <a href="https://github.com/Davidl2002">
+        <img src="https://github.com/Davidl2002.png" width="100px;" alt="David López"/><br />
+        <sub><b>David López</b></sub>
+      </a><br />
+      <sub>💻 Desarrollador Backend</sub>
+    </td>
+     <td align="center">
+      <a href="https://github.com/TicheKiwar">
+        <img src="https://github.com/TicheKiwar.png" width="100px;" alt="Kiwar Tiche"/><br />
+        <sub><b>Kiwar Tiche</b></sub>
+      </a><br />
+      <sub>💻 Desarrollador Frontend</sub>
+    </td>
+  </tr>
+</table>
 
 ## 📄 Licencia
 
